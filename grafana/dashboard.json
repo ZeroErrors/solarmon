@@ -1,4 +1,31 @@
 {
+  "__inputs": [],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "5.4.2"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": "5.0.0"
+    },
+    {
+      "type": "datasource",
+      "id": "influxdb",
+      "name": "InfluxDB",
+      "version": "5.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "singlestat",
+      "name": "Singlestat",
+      "version": "5.0.0"
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -15,7 +42,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 1,
+  "id": null,
+  "iteration": 1579320327865,
   "links": [],
   "panels": [
     {
@@ -27,6 +55,7 @@
         "#508642",
         "#d44a3a"
       ],
+      "datasource": "$datasource",
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -92,7 +121,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -151,6 +180,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#299c46"
       ],
+      "datasource": "$datasource",
       "decimals": null,
       "format": "watt",
       "gauge": {
@@ -218,7 +248,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -263,6 +293,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#299c46"
       ],
+      "datasource": "$datasource",
       "decimals": null,
       "format": "watt",
       "gauge": {
@@ -330,7 +361,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -374,6 +405,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
+      "datasource": "$datasource",
       "decimals": null,
       "format": "kwatth",
       "gauge": {
@@ -441,7 +473,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -485,6 +517,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
+      "datasource": "$datasource",
       "decimals": null,
       "format": "watt",
       "gauge": {
@@ -552,7 +585,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -596,6 +629,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
+      "datasource": "$datasource",
       "decimals": null,
       "format": "kwatth",
       "gauge": {
@@ -663,7 +697,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -707,6 +741,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
+      "datasource": "$datasource",
       "decimals": null,
       "format": "kwatth",
       "gauge": {
@@ -774,7 +809,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -818,6 +853,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
+      "datasource": "$datasource",
       "decimals": null,
       "format": "kwatth",
       "gauge": {
@@ -885,7 +921,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -929,6 +965,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
+      "datasource": "$datasource",
       "decimals": null,
       "format": "watt",
       "gauge": {
@@ -996,7 +1033,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -1040,6 +1077,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
+      "datasource": "$datasource",
       "decimals": null,
       "format": "kwatth",
       "gauge": {
@@ -1107,7 +1145,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -1151,6 +1189,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
+      "datasource": "$datasource",
       "decimals": null,
       "format": "kwatth",
       "gauge": {
@@ -1218,7 +1257,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -1262,6 +1301,7 @@
         "#e24d42",
         "#d44a3a"
       ],
+      "datasource": "$datasource",
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -1327,7 +1367,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -1417,6 +1457,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": "$datasource",
       "fill": 1,
       "gridPos": {
         "h": 6,
@@ -1463,7 +1504,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -1500,7 +1541,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "B",
@@ -1568,6 +1609,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": "$datasource",
       "fill": 1,
       "gridPos": {
         "h": 7,
@@ -1614,7 +1656,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -1651,7 +1693,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "B",
@@ -1719,6 +1761,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": "$datasource",
       "fill": 1,
       "gridPos": {
         "h": 6,
@@ -1765,7 +1808,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -1802,7 +1845,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "B",
@@ -1870,6 +1913,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": "$datasource",
       "fill": 1,
       "gridPos": {
         "h": 5,
@@ -1915,7 +1959,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -1983,6 +2027,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": "$datasource",
       "fill": 1,
       "gridPos": {
         "h": 6,
@@ -2029,7 +2074,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -2066,7 +2111,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "B",
@@ -2134,6 +2179,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": "$datasource",
       "fill": 1,
       "gridPos": {
         "h": 4,
@@ -2180,7 +2226,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -2248,6 +2294,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": "$datasource",
       "fill": 1,
       "gridPos": {
         "h": 4,
@@ -2294,7 +2341,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -2331,7 +2378,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "B",
@@ -2399,6 +2446,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": "$datasource",
       "fill": 1,
       "gridPos": {
         "h": 7,
@@ -2446,7 +2494,7 @@
             }
           ],
           "hide": false,
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "C",
@@ -2484,7 +2532,7 @@
             }
           ],
           "hide": false,
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "D",
@@ -2552,6 +2600,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": "$datasource",
       "fill": 1,
       "gridPos": {
         "h": 6,
@@ -2599,7 +2648,7 @@
             }
           ],
           "hide": false,
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -2637,7 +2686,7 @@
             }
           ],
           "hide": false,
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "B",
@@ -2675,7 +2724,7 @@
             }
           ],
           "hide": false,
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "C",
@@ -2743,6 +2792,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": "$datasource",
       "fill": 1,
       "gridPos": {
         "h": 6,
@@ -2790,7 +2840,7 @@
             }
           ],
           "hide": false,
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -2828,7 +2878,7 @@
             }
           ],
           "hide": false,
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "B",
@@ -2896,6 +2946,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": "$datasource",
       "fill": 1,
       "gridPos": {
         "h": 3,
@@ -2942,7 +2993,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -2979,7 +3030,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "B",
@@ -3016,7 +3067,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "inverter",
+          "measurement": "/^$measurement$/",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "C",
@@ -3080,12 +3131,47 @@
       }
     }
   ],
-  "refresh": "1s",
+  "refresh": "5s",
   "schemaVersion": 16,
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {
+          "tags": [],
+          "text": "default",
+          "value": "default"
+        },
+        "hide": 0,
+        "label": null,
+        "name": "datasource",
+        "options": [],
+        "query": "influxdb",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "current": {
+          "text": "inverter",
+          "value": "inverter"
+        },
+        "hide": 0,
+        "label": null,
+        "name": "measurement",
+        "options": [
+          {
+            "text": "inverter",
+            "value": "inverter"
+          }
+        ],
+        "query": "inverter",
+        "skipUrlSync": false,
+        "type": "textbox"
+      }
+    ]
   },
   "time": {
     "from": "now-12h",
@@ -3113,5 +3199,5 @@
   "timezone": "",
   "title": "Inverter",
   "uid": "cULQj-ymk",
-  "version": 23
+  "version": 25
 }
