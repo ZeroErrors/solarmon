@@ -2,8 +2,7 @@ Solarmon
 ----
 A simple Python Script for reading Growatt PV Inverter Modbus RS485 RTU Protocol and storing into InfluxDB
 
-Protocol Documentation: http://www.growatt.pl/dokumenty/Inne/Growatt%20PV%20Inverter%20Modbus%20RS485%20RTU%20Protocol%20V3.04.pdf
-
+[Protocol Documentation](docs/README.md)
 
 How to use
 ----
