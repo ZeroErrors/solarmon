@@ -16,3 +16,21 @@ How to use
 - Go to http://localhost:3000/dashboard/import or equivalent for where you installed Grafana and import `grafana/dashboard.json`
 
 ![Inverter Grafana Dashboard](grafana/dashboard.png)
+
+
+Reading from Multiple Units
+----
+To read from multiple units add a new section to the `solarmon.cfg` config with the unit's id and the measurement name to store the units data in influxdb
+```ini
+[inverters.<name>]
+unit = <id>
+measurement = <mesurement>
+```
+Example:
+```ini
+[inverters.unit2]
+unit = 2
+measurement = inverter2
+```
+
+To view the data using a Grafana dashboard simply import the template like described above in "How to use" and then change the measurement variable at the top of the page to match what you put in the config, in the example that is 'inverter2'. 

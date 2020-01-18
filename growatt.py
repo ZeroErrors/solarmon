@@ -1,5 +1,4 @@
 import datetime
-from pymodbus.client.sync import ModbusSerialClient as ModbusClient
 from pymodbus.exceptions import ModbusIOException
 
 # Codes
@@ -51,24 +50,28 @@ def merge(*dict_args):
     return result
 
 class Growatt:
-    def __init__(self, port='/dev/ttyUSB0'):
-        self.client = ModbusClient(method='rtu', port=port, baudrate=9600, stopbits=1, parity='N', bytesize=8, timeout=1)
-        self.client.connect()
+    def __init__(self, client, name, unit):
+        self.client = client
+        self.name = name
+        self.unit = unit
 
         self.read_info()
 
     def read_info(self):
-        row = self.client.read_holding_registers(73)
+        row = self.client.read_holding_registers(73, unit=self.unit)
         if type(row) is ModbusIOException:
             raise row
 
         self.modbusVersion = row.registers[0]
 
     def print_info(self):
+        print('Growatt:')
+        print('\tName: ' + str(self.name))
+        print('\tUnit: ' + str(self.unit))
         print('\tModbus Version: ' + str(self.modbusVersion))
 
     def read(self):
-        row = self.client.read_input_registers(0, 33)
+        row = self.client.read_input_registers(0, 33, unit=self.unit)
         if type(row) is ModbusIOException:
             return None
 
@@ -111,7 +114,7 @@ class Growatt:
             'Temp': read_single(row, 32)            # 0.1C,     Temperature,        Inverter temperature
         }
 
-        row = self.client.read_input_registers(33, 8)
+        row = self.client.read_input_registers(33, 8, unit=self.unit)
         info = merge(info, {
             'ISOFault': read_single(row, 0),        # 0.1V,     ISO fault Value,    ISO Fault value
             'GFCIFault': read_single(row, 1, 1),    # 1mA,      GFCI fault Value,   GFCI fault Value
@@ -124,31 +127,31 @@ class Growatt:
             'Fault': ErrorCodes[row.registers[7]]
         })
 
-        # row = self.client.read_input_registers(41, 1)
+        # row = self.client.read_input_registers(41, 1, unit=self.unit)
         # info = merge_dicts(info, {
         #    'IPMTemp': read_single(row, 0),         # 0.1C,     IPM Temperature,    The inside IPM in inverter Temperature
         # })
 
-        row = self.client.read_input_registers(42, 2)
+        row = self.client.read_input_registers(42, 2, unit=self.unit)
         info = merge(info, {
             'PBusV': read_single(row, 0),           # 0.1V,     P Bus Voltage,      P Bus inside Voltage
             'NBusV': read_single(row, 1),           # 0.1V,     N Bus Voltage,      N Bus inside Voltage
         })
 
-        # row = self.client.read_input_registers(44, 3)
+        # row = self.client.read_input_registers(44, 3, unit=self.unit)
         # info = merge_dicts(info, {
         #                                            #           Check Step,         Product check step
         #                                            #           IPF,                Inverter output PF now
         #                                            #           ResetCHK,           Reset check data
         # })
         #
-        # row = self.client.read_input_registers(47, 1)
+        # row = self.client.read_input_registers(47, 1, unit=self.unit)
         # info = merge_dicts(info, {
         #    'DeratingMode': row.registers[6],       #           DeratingMode,       DeratingMode
         #    'Derating': DeratingMode[row.registers[6]]
         # })
 
-        row = self.client.read_input_registers(48, 16)
+        row = self.client.read_input_registers(48, 16, unit=self.unit)
         info = merge(info, {
             'Epv1_today': read_double(row, 0),      # 0.1kWh,   Epv1_today H,       PV Energy today
                                                     # 0.1kWh,   Epv1_today L,       PV Energy today
@@ -168,7 +171,7 @@ class Growatt:
                                                     # 0.1kVarh, E_rac_total L,      AC Reactive energy
         })
 
-        # row = self.client.read_input_registers(64, 2)
+        # row = self.client.read_input_registers(64, 2, unit=self.unit)
         # info = merge_dicts(info, {
         #    'WarningCode': row.registers[0],        #           WarningCode,        Warning Code
         #    'WarningValue': row.registers[1],       #           WarningValue,       Warning Value
@@ -185,7 +188,7 @@ class Growatt:
     #     return fault_table
     #
     # def read_fault_record(self, index):
-    #     row = self.client.read_input_registers(index, 5)
+    #     row = self.client.read_input_registers(index, 5, unit=self.unit)
     #     # TODO: Figure out how to read the date for these records?
     #     print(row.registers[0],
     #             ErrorCodes[row.registers[0]],
