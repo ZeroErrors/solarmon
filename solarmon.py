@@ -27,6 +27,11 @@ print('Done!')
 print('Setup Serial Connection... ', end='')
 growatt = Growatt(port=settings.get('inverter', 'port', fallback='/dev/ttyUSB0'))
 print('Dome!')
+print('')
+
+print('Growatt Info:')
+growatt.print_info()
+print('')
 
 while True:
     try:

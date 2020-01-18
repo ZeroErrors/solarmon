@@ -55,6 +55,18 @@ class Growatt:
         self.client = ModbusClient(method='rtu', port=port, baudrate=9600, stopbits=1, parity='N', bytesize=8, timeout=1)
         self.client.connect()
 
+        self.read_info()
+
+    def read_info(self):
+        row = self.client.read_holding_registers(73)
+        if type(row) is ModbusIOException:
+            raise row
+
+        self.modbusVersion = row.registers[0]
+
+    def print_info(self):
+        print('\tModbus Version: ' + str(self.modbusVersion))
+
     def read(self):
         row = self.client.read_input_registers(0, 33)
         if type(row) is ModbusIOException:
