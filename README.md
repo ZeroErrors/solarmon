@@ -34,3 +34,11 @@ measurement = inverter2
 ```
 
 To view the data using a Grafana dashboard simply import the template like described above in "How to use" and then change the measurement variable at the top of the page to match what you put in the config, in the example that is 'inverter2'. 
+
+Systemd Service
+---
+- Copy `solarmon.service` to `/etc/systemd/system`
+- Modify the `WorkingDirectory` and `User` to suit your setup.
+- Run `systemctl start solarmon` to start the service.
+- Run `systemctl status solarmon` and ensure that the service is running correctly.
+- Run `systemctl enable solarmon` to make the service automatically start when the system does.
