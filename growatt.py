@@ -16,7 +16,7 @@ ErrorCodes = {
     27: 'Residual Current High',
     28: 'DC Current High',
     29: 'PV Voltage High',
-    30: 'AV V Outrange',
+    30: 'AC Voltage Outrange',
     31: 'AC Freq Outrange',
     32: 'Module Hot'
 }
