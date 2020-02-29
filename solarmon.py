@@ -51,7 +51,7 @@ for section in settings.sections():
         'growatt': growatt,
         'measurement': measurement
     })
-print('Dome!')
+print('Done!')
 
 while True:
     online = False
