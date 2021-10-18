@@ -1,2 +1,2 @@
 influxdb==5.3.0
-pymodbus==2.3.0
+pymodbus==2.5.3
