@@ -7,7 +7,7 @@ A simple Python Script for reading Growatt PV Inverter Modbus RS485 RTU Protocol
 How to use
 ----
 - Some hardware running a Linux based OS with Python 3 (eg. Raspberry Pi)
-- Connect your Linux based OS to the RS485 port on the inverter via a RS485 to USB cable
+- Connect your Linux based OS to the RS485 port on the inverter via Printer Cable (usb type b) or Serial Connection
 - [Install InfluxDB](https://www.influxdata.com/)
 - Copy `solarmon.cfg.example` to `solarmon.cfg` and modify the config values to your setup as needed
 - Run `pip install -r requirements.txt`
