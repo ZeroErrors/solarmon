@@ -39,5 +39,5 @@ for section in settings.sections():
 row = client.read_input_registers(0, 82, unit=1)
 #row = client.read_holding_registers(15, unit=1)
 for r in range(80):
-
-    print(str(r) + " - " + str(row.registers[r]),sep=',' )
+    if row.registers[r] > 0:
+        print(str(r) + " - " + str(row.registers[r]),sep=',' )
