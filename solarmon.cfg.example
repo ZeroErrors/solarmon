@@ -1,0 +1,24 @@
+[influx]
+host = localhost
+port = 8086
+db_name = SolarBucket
+enabled = 1
+
+[influxCloud]
+host = xxx
+token = xxx
+org =xxx
+bucket = SolarBucket
+enabled = 1
+
+[query]
+interval = 15
+offline_interval = 60
+error_interval = 60
+
+[solarmon]
+port = /dev/ttyUSB0
+
+[inverters.main]
+unit = 1
+measurement = inverter
