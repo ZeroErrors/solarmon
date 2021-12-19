@@ -1,14 +1,15 @@
+
 #!/usr/bin/env python3
 
 import time
 import os
+from datetime import datetime
 
 from configparser import RawConfigParser
-from influxdb import InfluxDBClient
+#from influxdb import InfluxDBClient
 from pymodbus.client.sync import ModbusSerialClient as ModbusClient
 
 from growatt import Growatt
-
 settings = RawConfigParser()
 settings.read(os.path.dirname(os.path.realpath(__file__)) + '/solarmon.cfg')
 
@@ -21,12 +22,19 @@ measurement = settings.get('influx', 'measurement', fallback='inverter')
 
 # Clients
 print('Setup InfluxDB Client... ', end='')
-influx = InfluxDBClient(host=settings.get('influx', 'host', fallback='localhost'),
-                        port=settings.getint('influx', 'port', fallback=8086),
-                        username=settings.get('influx', 'username', fallback=None),
-                        password=settings.get('influx', 'password', fallback=None),
-                        database=db_name)
-influx.create_database(db_name)
+from datetime import datetime
+
+from influxdb_client import InfluxDBClient, Point, WritePrecision
+from influxdb_client.client.write_api import SYNCHRONOUS
+
+# You can generate an API token from the "API Tokens Tab" in the UI
+token = "-Ut_VEYEX6t70qTA1_nYR_0NdeKhpcSshEeNFIUO6in--tU4UsbzDxiayew7EFguI65OJx99dtCiiB3ZZXn9zA=="
+org = "pwshaheen@gmail.com"
+bucket = "SolarBucket"
+
+with InfluxDBClient(url="https://us-east-1-1.aws.cloud2.influxdata.com", token=token, org=org) as influxc:
+    #influxc.create_database(db_name)
+    write_api = influxc.write_api(write_options=SYNCHRONOUS)
 
 print('Setup Serial Connection... ', end='')
 port = settings.get('solarmon', 'port', fallback='/dev/ttyUSB0')
@@ -71,21 +79,18 @@ while True:
             online = True
 
             points = [{
-                'time': int(now),
-                'measurement': inverter['measurement'],
+                'time': datetime.utcnow(),
+                'tag': inverter['measurement'],
+                'measurement':'Growatt_Inverter',
                 "fields": info
             }]
+            write_api.write(bucket, org, points)
 
-
-
-            if not influx.write_points(points, time_precision='s'):
-                print("Failed to write to DB!")
         except Exception as err:
             print(growatt.name)
             print(err)
             print('there was an exception')
             inverter['error_sleep'] = error_interval
-
     if online:
         time.sleep(interval)
     else:
