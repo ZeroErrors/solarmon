@@ -96,24 +96,32 @@ class Growatt:
         # https://watts247.com/manuals/gw/GrowattModBusProtocol.pdf
         #
         bvolt=read_single(row,17,100)
-        if bvolt > 26.8:
+        if bvolt > 27:
             boc = 100
-        elif bvolt > 26.5:
+        elif bvolt >= 26.9:
+            boc = 96
+        elif bvolt >= 26.8:
             boc = 90
-        elif bvolt > 26.3:
+        elif bvolt >= 26.6:
+            boc = 80
+        elif bvolt >= 26.4:
             boc = 70
-        elif bvolt > 26.1:
+        elif bvolt >= 26.2:
+            boc = 60
+        elif bvolt >= 26.1:
+            boc = 50
+        elif bvolt >= 26:
             boc = 40
-        elif bvolt > 25.9:
+        elif bvolt >= 25.8:
             boc = 30
-        elif bvolt > 25.7:
+        elif bvolt >= 25.6:
             boc = 20
-        elif bvolt > 25.5:
-            boc = 17
-        elif bvolt > 24.9:
+        elif bvolt >= 25.2:
             boc = 14
-        elif bvolt > 23.9:
-            boc = 9
+        elif bvolt >= 24:
+            boc = 9.5
+        elif bvolt >= 22.4:
+            boc = 5
         else:
             boc = 0   
         if read_single(row,20) > 0:
