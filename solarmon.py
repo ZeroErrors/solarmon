@@ -4,6 +4,8 @@
 import time
 import os
 from datetime import datetime
+import urllib.request
+import logging
 
 from configparser import RawConfigParser
 
@@ -12,6 +14,9 @@ from pymodbus.client.sync import ModbusSerialClient as ModbusClient
 from growatt import Growatt
 
 
+logging.basicConfig(filename='log.log', encoding='utf-8', level=logging.INFO,format='%(asctime)s %(levelname)-8s %(message)s',datefmt='%Y-%m-%d %H:%M:%S')
+logging.info('Waiting 60 seconds for internet connection and influxDB to establish')
+time.sleep(60)
 
 settings = RawConfigParser()
 settings.read(os.path.dirname(os.path.realpath(__file__)) + '/solarmon.cfg')
@@ -24,8 +29,10 @@ localEnabled = settings.get('influx', 'enabled')
 db_name = settings.get('influx', 'db_name', fallback='inverter')
 measurement = settings.get('influx', 'measurement', fallback='inverter')
 
+
+
 # Clients
-print('Setup InfluxDB Client... ', end='')
+logging.info('Setup InfluxDB Client... ')
 influx = InfluxDBClient(host=settings.get('influx', 'host', fallback='localhost'),
                         port=settings.getint('influx', 'port', fallback=8086),
                         username=settings.get('influx', 'username', fallback=None),
@@ -41,6 +48,16 @@ org = settings.get('influxCloud', 'org')
 bucket = settings.get('influxCloud', 'bucket')
 cloudEnabled = settings.get('influxCloud', 'enabled')
 cloudHost = settings.get('influxCloud', 'host')
+
+cloudError = 0
+
+#check if connected to internet
+try:
+    urllib.request.urlopen('http://google.com') 
+    logging.info('Internet Connection Found...Enabling Cloud Write if Set.')
+except:
+    cloudEnabled = "0"
+    logging.error('Internet Connection NOT Found...Disabling Cloud Write.')
 #Cloud Influx Client which differs from Local One
 from influxdb_client import InfluxDBClient, Point, WritePrecision
 from influxdb_client.client.write_api import SYNCHRONOUS
@@ -48,12 +65,12 @@ with InfluxDBClient(url=cloudHost, token=token, org=org) as influxc:
     #influxc.create_database(db_name)
     write_api = influxc.write_api(write_options=SYNCHRONOUS)
 
-print('Setup Serial Connection... ', end='')
+logging.info('Setup Serial Connection...')
 port = settings.get('solarmon', 'port', fallback='/dev/ttyUSB0')
 client = ModbusClient(method='rtu', port=port, baudrate=9600, stopbits=1, parity='N', bytesize=8, timeout=1)
 client.connect()
 
-print('Loading inverters... ')
+logging.info('Loading inverters... ')
 inverters = []
 for section in settings.sections():
     if not section.startswith('inverters.'):
@@ -69,7 +86,7 @@ for section in settings.sections():
         'growatt': growatt,
         'measurement': measurement
     })
-
+logging.info('Starting Monitoing Loop')
 while True:
     online = False
     for inverter in inverters:
@@ -99,8 +116,11 @@ while True:
             }]
            
 
-            if cloudEnabled == "1":
-                write_api.write(bucket, org, points)
+            if cloudEnabled == "1" and cloudError == 0:
+                try:
+                    write_api.write(bucket, org, points)
+                except:
+                    cloudError=1
                 #print('writing to cloud')
             if localEnabled == "1":
                 influx.write_points(points, time_precision='s')
@@ -108,10 +128,11 @@ while True:
 
 
         except Exception as err:
-            print(growatt.name)
-            print(err)
-            print('there was an exception')
+            logging.error(growatt.name)
+            logging.error(err)
+            logging.error('there was an exception')
             inverter['error_sleep'] = error_interval
+            continue
     if online:
         time.sleep(interval)
     else:
