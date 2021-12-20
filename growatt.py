@@ -4,11 +4,11 @@ from pymodbus.exceptions import ModbusIOException
 # Codes
 StateCodes = {
     0: 'Standby',
-    2: 'Discharge',
+    2: 'Not Charging',
     3: 'Fault',
     4: 'Flash',
-    5: 'PV charge',
-    6: 'AC charge',
+    5: 'Solar charge',
+    6: 'Grid charge',
     7: 'Combine charge',
     8: 'Combine charge and Bypass',
     9: 'PV charge and Bypass',
@@ -29,6 +29,14 @@ ErrorCodes = {
     31: 'AC Freq Outrange',
     32: 'Module Hot Tests'
 }
+
+#conversion factors for green energy reporting
+miles = 0.002
+gasoline = 0.0001
+coal = 0.0008
+smartphones = 0.086
+seedlings = 0.000012
+forest = 0.0000009
 
 for i in range(1, 24):
     ErrorCodes[i] = "Error Code: %s" % str(99 + i)
@@ -80,7 +88,7 @@ class Growatt:
         print('\tModbus Version: ' + str(self.modbusVersion))
 
     def read(self):
-        row = self.client.read_input_registers(0, 82, unit=self.unit)
+        row = self.client.read_input_registers(0, 100, unit=self.unit)
         #print(row.registers)
         if type(row) is ModbusIOException:
             return None
@@ -107,22 +115,39 @@ class Growatt:
         elif bvolt > 23.9:
             boc = 9
         else:
-            boc = 0                                 # Unit,     Variable Name,      Description
+            boc = 0   
+        if read_single(row,20) > 0:
+            gridstatus = "On Grid"
+        else:
+            gridstatus = "Off Grid" 
+            
+        powerConsumption = read_single(row,10)                                 # Unit,     Variable Name,      Description
         info = {                                    # ==================================================================
             'StatusCode': row.registers[0],         # N/A,      Inverter Status,    Inverter run state
             'Status': StateCodes[row.registers[0]],
             'Ppv': read_double(row, 3),             # 0.1W,     Ppv H,              Input power (high)
-            'PowerConsumption_Watts': read_single(row,10),
+            'PowerConsumption_Watts': powerConsumption,
             'BatteryVolts': read_single(row,17,100),
             'BatterySOC': row.registers[18],
             'BatteryPercentRemaining': boc,       # State of charge
             'GridInput_Volts': read_single(row,20),
+            'GridStatus': gridstatus,
             'PowerOutput_Volts': read_single(row,22),
+            'PowerOutput_Amps': read_single(row,34),
             'InverterTemp_Farenheit': (read_single(row,25)*9/5)+32,
             'BatteryTemp_Farenheit': (read_single(row,26)*9/5)+32,
-            'Load_Percent': read_single(row,27),
+            'BatteryLoad_Percent': read_single(row,27),
             'BatteryDischarge_Watts': read_single(row,74),
-            'GridDischarge_Watts': read_single(row,76)
+            'BatteryDischarge_Amps': read_single(row,76),
+            #green calcs
+            'CO2_MilesSaved': powerConsumption*miles,
+            'CO2_CoalAvoided_lbs': powerConsumption*coal,
+            'CO2_GasolineAvoided_gallons': powerConsumption*gasoline,
+            'CO2_PhoneChargesAvoided_count':powerConsumption*smartphones,
+            'CarbonSequestered_Seedlings_count':powerConsumption*seedlings,
+            'CarbonSequestered_Forests_acres':powerConsumption*forest
+
+
             #'Vpv1': read_single(row, 1),            # 0.1V,     Vpv1,               PV1 voltage
             #'PV1Curr': read_single(row, 4),         # 0.1A,     PV1Curr,            PV1 input current
             #'PV1Watt': read_double(row, 5),         # 0.1W,     PV1Watt H,          PV1 input watt (high)

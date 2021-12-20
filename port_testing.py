@@ -36,8 +36,19 @@ for section in settings.sections():
         'measurement': measurement
     })
 
-row = client.read_input_registers(0, 82, unit=1)
+#for a in range(48):
+#    print('range is ' + str(a))
+#    try:
+#        row = client.read_input_registers(a,150)
 #row = client.read_holding_registers(15, unit=1)
-for r in range(80):
+#        for r in range(150):
+#            if row.registers[r] > 0:
+#                print(str(r) + " - " + str(row.registers[r]),sep=',' )
+#    except:
+#        print('no data')    
+
+num = 109
+row = client.read_input_registers(0, num)
+for r in range(num):
     if row.registers[r] > 0:
         print(str(r) + " - " + str(row.registers[r]),sep=',' )

@@ -11,9 +11,7 @@ from influxdb import InfluxDBClient
 from pymodbus.client.sync import ModbusSerialClient as ModbusClient
 from growatt import Growatt
 
-#Cloud Influx Client which differs from Local One
-from influxdb_client import InfluxDBClient, Point, WritePrecision
-from influxdb_client.client.write_api import SYNCHRONOUS
+
 
 settings = RawConfigParser()
 settings.read(os.path.dirname(os.path.realpath(__file__)) + '/solarmon.cfg')
@@ -43,7 +41,9 @@ org = settings.get('influxCloud', 'org')
 bucket = settings.get('influxCloud', 'bucket')
 cloudEnabled = settings.get('influxCloud', 'enabled')
 cloudHost = settings.get('influxCloud', 'host')
-
+#Cloud Influx Client which differs from Local One
+from influxdb_client import InfluxDBClient, Point, WritePrecision
+from influxdb_client.client.write_api import SYNCHRONOUS
 with InfluxDBClient(url=cloudHost, token=token, org=org) as influxc:
     #influxc.create_database(db_name)
     write_api = influxc.write_api(write_options=SYNCHRONOUS)
