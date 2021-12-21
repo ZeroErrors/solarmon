@@ -129,20 +129,21 @@ class Growatt:
         else:
             gridstatus = "Off Grid" 
             
-        powerConsumption = read_single(row,10)                                 # Unit,     Variable Name,      Description
-        info = {                                    # ==================================================================
-            'StatusCode': row.registers[0],         # N/A,      Inverter Status,    Inverter run state
+        powerConsumption = read_single(row,10)                               
+        info = {                                    
+            'StatusCode': row.registers[0],         
             'Status': StateCodes[row.registers[0]],
-            'Ppv': read_double(row, 3),             # 0.1W,     Ppv H,              Input power (high)
+            'Ppv': read_double(row, 3),            
             'PowerConsumption_Watts': powerConsumption,
             'BatteryVolts': read_single(row,17,100),
             'BatterySOC': row.registers[18],
-            'BatteryPercentRemaining': boc,       # State of charge
+            'BatteryPercentRemaining': boc,      
             'GridInput_Volts': read_single(row,20),
             'GridStatus': gridstatus,
             'PowerOutput_Volts': read_single(row,22),
             'PowerOutput_Amps': read_single(row,34),
             'InverterTemp_Farenheit': (read_single(row,25)*9/5)+32,
+            'InverterFanSpeed_Percent': row.registers[82],
             'BatteryTemp_Farenheit': (read_single(row,26)*9/5)+32,
             'BatteryLoad_Percent': read_single(row,27),
             'BatteryDischarge_Watts': read_single(row,74),
@@ -153,7 +154,14 @@ class Growatt:
             'CO2_GasolineAvoided_gallons': powerConsumption*gasoline,
             'CO2_PhoneChargesAvoided_count':powerConsumption*smartphones,
             'CarbonSequestered_Seedlings_count':powerConsumption*seedlings,
-            'CarbonSequestered_Forests_acres':powerConsumption*forest
+            'CarbonSequestered_Forests_acres':powerConsumption*forest,
+            #Energy Summary Calcs
+            'GridEnergyUsedCharging_kwToday': read_single(row,57),
+            'GridEnergyUsedCharging_kwTotal': read_single(row,59),
+            'BatteryEnergyUsed_kwToday': read_single(row,61),
+            'BatteryEnergyUsed_kwTotal': read_single(row,63),
+            'GridEnergyUsedDirectly_kwToday': read_single(row,65),
+            'GridEnergyUsedDirectly_kwTotal': read_single(row,67)
 
 
             #'Vpv1': read_single(row, 1),            # 0.1V,     Vpv1,               PV1 voltage
