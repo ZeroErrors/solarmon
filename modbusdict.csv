@@ -1,0 +1,100 @@
+address,description
+0,RunState-System run state-
+1,Vpv1-PV1 voltage-0.1V
+2,Vpv2-PV2 voltage-0.1V
+3,Ppv1 H-PV1 charge power (high)-0.1W
+4,Ppv1 L-PV1 charge power (low)-0.1W
+5,Ppv2 H-PV2 charge power (high)-0.1W
+6,Ppv2 L-PV2 charge power (low)-0.1W
+7,Buck1Curr-Buck1 current-0.1A
+8,Buck2Curr-Buck2 current-0.1A
+9,OP_Watt H-Output active power (high)-0.1W
+10,OP_Watt L-Output active power (low)-0.1W
+11,OP_VA H-Output apparent power (high)-0.1VA
+12,OP_VA L-Output apparent power (low)-0.1VA
+13,ACChr_Watt H-AC charge watt (high)-0.1W
+14,ACChr_Watt L-AC charge watt (low)-0.1W
+15,"ACChr_VA H-AC   charge
+(high)-0.1VA"
+16,"ACChr_VA L-AC   charge
+(low)-0.1VA"
+17,Bat Volt-Battery volt (M3)-0.01V
+18,BatterySOC-Battery SOC-0.01
+19,Bus Volt-Bus Voltage-0.1V
+20,Grid Volt-AC input Volt-0.1V
+21,Line Freq-AC input frequency-0.01Hz
+22,OutputVolt-AC output Volt-0.1V
+23,OutputFreq-AC output frequency-0.01Hz
+24,Ouput DCV-Ouput DC Volt-0.1V
+25,InvTemp-Inv Temperature-0.1C
+26,DcDc Temp-DC?DC Temperature-0.1C
+27,LoadPercent-Load Percent-0.001
+28,Bat_s_Volt-Battery?port volt (DSP)-0.01V
+29,Bat_Volt_DSP-Battery?bus volt (DSP)-0.01V
+30,Time total H-Work time total (high)-0.5S
+31,Time total L-Work time total (low)-0.5S
+32,Buck1_NTC-Buck1 Temperature-0.1C
+33,Buck2_NTC-Buck2 Temperature-0.1C
+34,OP_Curr-Output Current-0.1A
+35,Inv_Curr-Inv Current-0.1A
+36,AC_InWatt H-AC input watt (high)-0.1W
+37,AC_InWatt L-AC input watt (low)-0.1W
+38,"AC_InVA H-AC    input
+(high)-0.1VA"
+39,"AC_InVA L-AC    input
+(low)-0.1VA"
+40,Fault bit-fault bit-
+41,Warning bit-Warning bit-
+42,fault value-fault value-
+43,warning value-warning value-
+44,DTC-Device Type Code-
+45,Check Step-Product check step-
+46,Production Line Mode-Production Line Mode-
+47,ConstantPowerOKFlag-Constant Power OK Flag-
+48,Epv1_today H-PV Energy today-
+49,"Epv1_today L-PV Energy today-0.1kW
+h"
+50,Epv1_total H-PV Energy total-
+51,"Epv1_total L-PV Energy total-0.1kW
+h"
+52,Epv2_today H-PV Energy today-
+53,"Epv2_today L-PV Energy today-0.1kW
+h"
+54,Epv2_total H-PV Energy total-
+55,"Epv2_total L-PV Energy total-0.1kW
+h"
+56,Eac_chrToday H-AC charge Energy today-
+57,"Eac_chrToday L-AC charge Energy today-0.1kW
+h"
+58,Eac_chrTotal H-AC charge Energy total-
+59,"Eac_chrTotal L-AC charge Energy total-0.1kW
+h"
+60,Ebat_dischrToday H-Bat discharge Energy today-
+61,"Ebat_dischrToday L-Bat discharge Energy today-0.1kW
+h"
+62,Ebat_dischrTotal H-Bat discharge Energy total-
+63,"Ebat_dischrTotal L-Bat discharge Energy total-0.1kW
+h"
+64,Eac_dischrToday H-AC discharge Energy today-
+65,"Eac_dischrToday L-AC discharge Energy today-0.1kW
+h"
+66,Eac_dischrTotal H-AC discharge Energy total-
+67,"Eac_dischrTotal L-AC discharge Energy total-0.1kW
+h"
+68,ACChrCurr-AC Charge Battery Current-0.1A
+69,AC_DisChrWatt H-AC discharge watt (high)-0.1W
+70,AC_DisChrWatt L-AC discharge watt (low)-0.1W
+71,"AC_DisChrVA H-AC  discharge  apparent  power
+(high)-0.1VA"
+72,"AC_DisChrVA L-AC  discharge  apparent  power
+(low)-0.1VA"
+73,Bat_DisChrWatt H-Bat discharge watt (high)-0.1W
+74,Bat_DisChrWatt L-Bat discharge watt (low)-0.1W
+75,"Bat_DisChrVA H-Bat discharge apparent power
+(high)-0.1VA"
+76,"Bat_DisChrVA L-Bat discharge apparent power
+(low)-0.1VA"
+77,Bat_Watt H-Bat watt (high)-0.1W
+78,Bat_Watt L-Bat watt (low)-0.1W
+79,Reserved-Not Used-
+80,BatOverCharge-Battery Over Charge Flag-
