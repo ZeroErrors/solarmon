@@ -14,10 +14,8 @@ address,description
 12,OP_VA L-Output apparent power (low)-0.1VA
 13,ACChr_Watt H-AC charge watt (high)-0.1W
 14,ACChr_Watt L-AC charge watt (low)-0.1W
-15,"ACChr_VA H-AC   charge
-(high)-0.1VA"
-16,"ACChr_VA L-AC   charge
-(low)-0.1VA"
+15,"ACChr_VA H-AC   charge(high)-0.1VA"
+16,"ACChr_VA L-AC   charge(low)-0.1VA"
 17,Bat Volt-Battery volt (M3)-0.01V
 18,BatterySOC-Battery SOC-0.01
 19,Bus Volt-Bus Voltage-0.1V
@@ -39,10 +37,8 @@ address,description
 35,Inv_Curr-Inv Current-0.1A
 36,AC_InWatt H-AC input watt (high)-0.1W
 37,AC_InWatt L-AC input watt (low)-0.1W
-38,"AC_InVA H-AC    input
-(high)-0.1VA"
-39,"AC_InVA L-AC    input
-(low)-0.1VA"
+38,"AC_InVA H-AC input (high)-0.1VA"
+39,"AC_InVA L-AC input (low)-0.1VA"
 40,Fault bit-fault bit-
 41,Warning bit-Warning bit-
 42,fault value-fault value-
@@ -52,49 +48,54 @@ address,description
 46,Production Line Mode-Production Line Mode-
 47,ConstantPowerOKFlag-Constant Power OK Flag-
 48,Epv1_today H-PV Energy today-
-49,"Epv1_today L-PV Energy today-0.1kW
-h"
+49,"Epv1_today L-PV Energy today-0.1kWh"
 50,Epv1_total H-PV Energy total-
-51,"Epv1_total L-PV Energy total-0.1kW
-h"
+51,"Epv1_total L-PV Energy total-0.1kWh"
 52,Epv2_today H-PV Energy today-
-53,"Epv2_today L-PV Energy today-0.1kW
-h"
+53,"Epv2_today L-PV Energy today-0.1kWh"
 54,Epv2_total H-PV Energy total-
-55,"Epv2_total L-PV Energy total-0.1kW
-h"
+55,"Epv2_total L-PV Energy total-0.1kWh"
 56,Eac_chrToday H-AC charge Energy today-
-57,"Eac_chrToday L-AC charge Energy today-0.1kW
-h"
+57,"Eac_chrToday L-AC charge Energy today-0.1kWh"
 58,Eac_chrTotal H-AC charge Energy total-
-59,"Eac_chrTotal L-AC charge Energy total-0.1kW
-h"
+59,"Eac_chrTotal L-AC charge Energy total-0.1kWh"
 60,Ebat_dischrToday H-Bat discharge Energy today-
-61,"Ebat_dischrToday L-Bat discharge Energy today-0.1kW
-h"
+61,"Ebat_dischrToday L-Bat discharge Energy today-0.1kWh"
 62,Ebat_dischrTotal H-Bat discharge Energy total-
-63,"Ebat_dischrTotal L-Bat discharge Energy total-0.1kW
-h"
+63,"Ebat_dischrTotal L-Bat discharge Energy total-0.1kWh"
 64,Eac_dischrToday H-AC discharge Energy today-
-65,"Eac_dischrToday L-AC discharge Energy today-0.1kW
-h"
+65,"Eac_dischrToday L-AC discharge Energy today-0.1kWh"
 66,Eac_dischrTotal H-AC discharge Energy total-
-67,"Eac_dischrTotal L-AC discharge Energy total-0.1kW
-h"
+67,"Eac_dischrTotal L-AC discharge Energy total-0.1kWh"
 68,ACChrCurr-AC Charge Battery Current-0.1A
 69,AC_DisChrWatt H-AC discharge watt (high)-0.1W
 70,AC_DisChrWatt L-AC discharge watt (low)-0.1W
-71,"AC_DisChrVA H-AC  discharge  apparent  power
-(high)-0.1VA"
-72,"AC_DisChrVA L-AC  discharge  apparent  power
-(low)-0.1VA"
+71,"AC_DisChrVA H-AC  discharge  apparent  power(high)-0.1VA"
+72,"AC_DisChrVA L-AC  discharge  apparent  power(low)-0.1VA"
 73,Bat_DisChrWatt H-Bat discharge watt (high)-0.1W
 74,Bat_DisChrWatt L-Bat discharge watt (low)-0.1W
-75,"Bat_DisChrVA H-Bat discharge apparent power
-(high)-0.1VA"
-76,"Bat_DisChrVA L-Bat discharge apparent power
-(low)-0.1VA"
+75,"Bat_DisChrVA H-Bat discharge apparent power(high)-0.1VA"
+76,"Bat_DisChrVA L-Bat discharge apparent power(low)-0.1VA"
 77,Bat_Watt H-Bat watt (high)-0.1W
 78,Bat_Watt L-Bat watt (low)-0.1W
 79,Reserved-Not Used-
 80,BatOverCharge-Battery Over Charge Flag-
+81,FanSpeedofMPPT Charger
+82,Inverter Fan Speed
+83,Unknown
+84,Unknown
+85,Unknown
+86,Unknown
+87,Unknown
+88,Unknown
+89,Unknown
+90,Unknown
+91,Unknown
+92,Unknown
+93,Unknown
+94,Unknown
+95,Unknown
+96,Unknown
+97,Unknown
+98,Unknown
+99,Unknown

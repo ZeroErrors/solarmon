@@ -13,13 +13,29 @@ port = settings.get('solarmon', 'port', fallback='/dev/ttyUSB0')
 client = ModbusClient(method='rtu', port=port, baudrate=9600, stopbits=1, parity='N', bytesize=8, timeout=1)
 client.connect()
 method = input('Enter read or write: ')
+if method == "test":
+    mbd = dict()
+    f = open("modbusdict.csv")
+    for line in f:
+        line = line.strip('\n')
+        (key, val) = line.split(",")
+        mbd[key] = val
+
 if method == "read":
     start = int(input('enter starting register to read from: '))
     numreg = input('enter number of registers to read [0-100]: ')
+    mbd = dict()
+
+    f = open("modbusdict.csv")
+    for line in f:
+        line = line.strip('\n')
+        (key, val) = line.split(",")
+        mbd[key] = val
+    print(mbd)
     row = client.read_input_registers(int(start), int(numreg))
     for r in range(int(numreg)):
         if row.registers[r] > 0:
-            print(str(r) + " - " + str(row.registers[r]),sep=',' )
+            print(str(r) + " - " + mbd[str(r)] + " - " + str(row.registers[r]),sep=',' )
 if method == "write":
     start = int(input("enter register you want to modify: "))
     rr = client.read_holding_registers(start,1,unit=1)

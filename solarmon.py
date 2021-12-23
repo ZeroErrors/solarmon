@@ -13,10 +13,11 @@ from influxdb import InfluxDBClient
 from pymodbus.client.sync import ModbusSerialClient as ModbusClient
 from growatt import Growatt
 
+setupSleep = 5
 
 logging.basicConfig(filename='log.log', encoding='utf-8', level=logging.INFO,format='%(asctime)s %(levelname)-8s %(message)s',datefmt='%Y-%m-%d %H:%M:%S')
 logging.info('Waiting 60 seconds for internet connection and influxDB to establish')
-time.sleep(60)
+time.sleep(setupSleep)
 
 settings = RawConfigParser()
 settings.read(os.path.dirname(os.path.realpath(__file__)) + '/solarmon.cfg')
@@ -50,43 +51,51 @@ cloudEnabled = settings.get('influxCloud', 'enabled')
 cloudHost = settings.get('influxCloud', 'host')
 
 cloudError = 0
+setupError = 1
 
+from influxdb_client import InfluxDBClient, Point, WritePrecision
+from influxdb_client.client.write_api import SYNCHRONOUS
+with InfluxDBClient(url=cloudHost, token=token, org=org) as influxc:
+    #influxc.create_database(db_name)
+    #Cloud Influx Client which differs from Local One
+    write_api = influxc.write_api(write_options=SYNCHRONOUS)
+port = settings.get('solarmon', 'port', fallback='/dev/ttyUSB0')
 #check if connected to internet
+
 try:
     urllib.request.urlopen('http://google.com') 
     logging.info('Internet Connection Found...Enabling Cloud Write if Set.')
 except:
     cloudEnabled = "0"
     logging.error('Internet Connection NOT Found...Disabling Cloud Write.')
-#Cloud Influx Client which differs from Local One
-from influxdb_client import InfluxDBClient, Point, WritePrecision
-from influxdb_client.client.write_api import SYNCHRONOUS
-with InfluxDBClient(url=cloudHost, token=token, org=org) as influxc:
-    #influxc.create_database(db_name)
-    write_api = influxc.write_api(write_options=SYNCHRONOUS)
 
-logging.info('Setup Serial Connection...')
-port = settings.get('solarmon', 'port', fallback='/dev/ttyUSB0')
-client = ModbusClient(method='rtu', port=port, baudrate=9600, stopbits=1, parity='N', bytesize=8, timeout=1)
-client.connect()
-
-logging.info('Loading inverters... ')
-inverters = []
-for section in settings.sections():
-    if not section.startswith('inverters.'):
+while setupError > 0:
+    try:
+        client = ModbusClient(method='rtu', port=port, baudrate=9600, stopbits=1, parity='N', bytesize=8, timeout=1)
+        client.connect()
+        logging.info('Loading inverters... ')
+        inverters = []
+        for section in settings.sections():
+            name = section[10:]
+            unit = int(settings.get(section, 'unit'))
+            measurement = settings.get(section, 'measurement')
+            growatt = Growatt(client, name, unit)
+            #growatt.print_info()
+            inverters.append({
+                'error_sleep': 0,
+                'growatt': growatt,
+                'measurement': measurement
+            })
+        setupError = 0    
+    except:
+        logging.error('Error Loading Inverter Info.  Error Count ' + str(setupError))
+        setupError = setupError + 1
+        time.sleep(offline_interval)
+        if setupError > 10:
+            logging.info('reached max error tolerance.  Rebooting Pi.')
+            #os.system('sudo reboot')
         continue
-
-    name = section[10:]
-    unit = int(settings.get(section, 'unit'))
-    measurement = settings.get(section, 'measurement')
-    growatt = Growatt(client, name, unit)
-    #growatt.print_info()
-    inverters.append({
-        'error_sleep': 0,
-        'growatt': growatt,
-        'measurement': measurement
-    })
-logging.info('Starting Monitoing Loop')
+logging.info('Starting Monitoring Loop')
 while True:
     online = False
     for inverter in inverters:
@@ -132,7 +141,7 @@ while True:
             logging.error(err)
             logging.error('there was an exception')
             inverter['error_sleep'] = error_interval
-            continue
+            pass
     if online:
         time.sleep(interval)
     else:

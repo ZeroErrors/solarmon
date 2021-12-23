@@ -139,6 +139,7 @@ class Growatt:
             'BatterySOC': row.registers[18],
             'BatteryPercentRemaining': boc,      
             'GridInput_Volts': read_single(row,20),
+            'GridUsed_Volts': read_single(row,39),
             'GridStatus': gridstatus,
             'PowerOutput_Volts': read_single(row,22),
             'PowerOutput_Amps': read_single(row,34),
@@ -148,6 +149,7 @@ class Growatt:
             'BatteryLoad_Percent': read_single(row,27),
             'BatteryDischarge_Watts': read_single(row,74),
             'BatteryDischarge_Amps': read_single(row,76),
+            'BatteryChargingCurrent': read_single(row,68),
             #green calcs
             'CO2_MilesSaved': powerConsumption*miles,
             'CO2_CoalAvoided_lbs': powerConsumption*coal,
