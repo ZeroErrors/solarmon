@@ -10,6 +10,7 @@ error_interval = 60
 
 [solarmon]
 port = /dev/ttyUSB0
+inverter_type = SPH-TL3
 
 [inverters.main]
 unit = 1
