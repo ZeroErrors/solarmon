@@ -5,6 +5,7 @@ from pymodbus.exceptions import ModbusIOException
 StateCodes = {
     0: 'Waiting',
     1: 'Normal',
+    2: 'Discharging',
     3: 'Fault'
 }
 
