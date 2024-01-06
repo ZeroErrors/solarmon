@@ -8,6 +8,7 @@ from influxdb import InfluxDBClient
 from pymodbus.client.sync import ModbusSerialClient as ModbusClient
 
 from growatt import Growatt
+from growatt_sph_tl3 import Growatt_SPH_TL3
 
 settings = RawConfigParser()
 settings.read(os.path.dirname(os.path.realpath(__file__)) + '/solarmon.cfg')
@@ -33,7 +34,7 @@ print('Setup Serial Connection... ', end='')
 port = settings.get('solarmon', 'port', fallback='/dev/ttyUSB0')
 client = ModbusClient(method='rtu', port=port, baudrate=9600, stopbits=1, parity='N', bytesize=8, timeout=1)
 client.connect()
-print('Dome!')
+print('Done!')
 
 print('Loading inverters... ')
 inverters = []
@@ -44,7 +45,14 @@ for section in settings.sections():
     name = section[10:]
     unit = int(settings.get(section, 'unit'))
     measurement = settings.get(section, 'measurement')
-    growatt = Growatt(client, name, unit)
+
+    inverter_type = settings.getint('solarmon', 'inverter_type', fallback='Default')
+
+    if inverter_type == 'SPH_TL3':
+        growatt = Growatt_SPH_TL3(client, name, unit)
+    else:
+        growatt = Growatt(client, name, unit)
+
     growatt.print_info()
     inverters.append({
         'error_sleep': 0,
